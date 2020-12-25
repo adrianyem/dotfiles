@@ -1,15 +1,20 @@
 call plug#begin('~/.vim/plugged')
 " Plugin Section
 Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'dracula/vim'
+Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'tpope/vim-commentary'
+Plug 'jiangmiao/auto-pairs'
+Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-surround'
+Plug 'machakann/vim-highlightedyank'
+Plug 'justinmk/vim-sneak'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " basic
@@ -21,10 +26,15 @@ set autoindent
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set smarttab
 set timeoutlen=1000 ttimeoutlen=0 " elimiate delays for esc keys
+set hidden
+set cmdheight=2
+set updatetime=300
+nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
 
 " colorscheme
 syntax enable
-colorscheme dracula
+colorscheme onedark
+set guifont=FiraCode_Nerd_Font:h14
 
 " Nerdtree
 let g:NERDTreeShowHidden = 1
@@ -40,3 +50,21 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " COC Intellisense
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+nmap <leader>rn <Plug>(coc-rename)
+
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
