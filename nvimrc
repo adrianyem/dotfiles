@@ -27,9 +27,12 @@ set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set smarttab
 set timeoutlen=1000 ttimeoutlen=0 " elimiate delays for esc keys
 set hidden
-set cmdheight=2
+"set cmdheight=2
 set updatetime=300
+set ignorecase
+set smartcase
 nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
+nnoremap <silent> <C-f> :Ag <C-R><C-W><CR>
 
 " colorscheme
 syntax enable
@@ -43,10 +46,16 @@ let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeMapActivateNode='4'
 
 "FZF search
 nnoremap <C-p> :Files<CR>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+" Sneak
+let g:sneak#s_next = 1
+let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
 
 " COC Intellisense
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
@@ -54,7 +63,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
 nmap <leader>rn <Plug>(coc-rename)
 
