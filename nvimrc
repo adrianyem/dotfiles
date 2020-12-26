@@ -32,7 +32,6 @@ set updatetime=300
 set ignorecase
 set smartcase
 nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
-nnoremap <silent> <C-f> :Ag <C-R><C-W><CR>
 
 " colorscheme
 syntax enable
@@ -49,8 +48,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeMapActivateNode='4'
 
 "FZF search
-nnoremap <C-p> :Files<CR>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+nnoremap <C-p> :GFiles<CR>
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
+nnoremap <silent> <C-f> :Ag <C-R><C-W><CR>
 
 " Sneak
 let g:sneak#s_next = 1
