@@ -9,6 +9,8 @@ cdpath=($HOME/Documents/Code $HOME/Documents)
 
 ZSH_DISABLE_COMPFIX=true
 
+alias ibrew='arch -x86_64 brew'
+
 source $ZSH/oh-my-zsh.sh
 
 KEYTIMEOUT=1
